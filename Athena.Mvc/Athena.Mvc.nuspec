@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Athena.Mvc</id>
+    <version>1.0.0.0</version>
+    <title>Athena Mvc Extensions</title>
+    <authors>John Moore</authors>
+    <owners></owners>
+    <description>
+      Some common MVC Helper methods that I use.
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      Some common extension methods that I use.
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/jcwmoore/athena</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/7a36f17f86bd7b44060a154928380438.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/mit</licenseUrl>
+    <copyright>Copyright 2013</copyright>
+    <dependencies>
+    </dependencies>
+    <references></references>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="ImageLinkExtensions.cs" target="content" />
+  </files>
+</package>
