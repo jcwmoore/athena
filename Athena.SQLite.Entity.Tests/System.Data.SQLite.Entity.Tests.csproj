@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7F67799-40B8-4782-9FF1-49CCC15F7EEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Data.SQLite.Entity.Tests</RootNamespace>
+    <AssemblyName>System.Data.SQLite.Entity.Tests</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Athena.IoC\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\Athena.IoC\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Athena.IoC\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Athena.SQLite.Entity\Athena.SQLite.Entity.csproj">
+      <Project>{0089FA1F-E958-4F72-838A-227565DBBEB7}</Project>
+      <Name>System.Data.SQLite.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ElementOperatorsFixture.cs" />
+    <Compile Include="ForeignKeyEntityFixture.cs" />
+    <Compile Include="ForeignKeyEntitySetFixture.cs" />
+    <Compile Include="GroupByFixture.cs" />
+    <Compile Include="NerdDinner.cs" />
+    <Compile Include="OrderByFixture.cs" />
+    <Compile Include="PartitioningFixture.cs" />
+    <Compile Include="SelectFixture.cs" />
+    <Compile Include="SetFixture.cs" />
+    <Compile Include="SimpleDeleteFixture.cs" />
+    <Compile Include="SimpleInsertFixture.cs" />
+    <Compile Include="SimpleUpdateFixture.cs" />
+    <Compile Include="TextFunctionsFixture.cs" />
+    <Compile Include="WhereFixture.cs" />
+    <Compile Include="QuantifiersFixture.cs" />
+    <Compile Include="AggregateFixture.cs" />
+    <Compile Include="JoinFixture.cs" />
+    <Compile Include="DateFunctionFixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="SQL\Northwind.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>
