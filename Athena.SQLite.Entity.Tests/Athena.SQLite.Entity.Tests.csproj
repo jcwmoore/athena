@@ -52,7 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Athena.SQLite.Entity\Athena.SQLite.Entity.csproj">
       <Project>{0089FA1F-E958-4F72-838A-227565DBBEB7}</Project>
-      <Name>System.Data.SQLite.Entity</Name>
+      <Name>Athena.SQLite.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
