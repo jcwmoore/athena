@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>csharpsqlite.entity</id>
+    <version>1.0.0.0</version>
+    <title>csharpsqlite with Entity Framework Provider</title>
+    <authors>John Moore</authors>
+    <owners>John Moore</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://code.google.com/p/csharp-sqlite/</projectUrl>
+    <iconUrl>http://code.google.com/p/csharp-sqlite/logo?cct=1355956730</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      C#-SQLite is an independent reimplementation of the SQLite software library version 3.7.7.1
+
+      It has been ported into managed code, written in C#
+    </description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+  <files>
+    <file src="..\bin\Release\System.Data.SQLite.Entity.dll" target="lib\net40" />
+    <file src="..\bin\Release\C#Sqlite.exe" target="tools" />
+  </files>
+</package>

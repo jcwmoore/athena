@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0089FA1F-E958-4F72-838A-227565DBBEB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Data.SQLite.Entity</RootNamespace>
+    <AssemblyName>System.Data.SQLite.Entity</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG; TRUE _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_ENABLE_OVERSIZE_CELL_CHECK SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF SQLITE_DEFAULT_FOREIGN_KEYS </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <NoWarn>0168;0169;0414;0618;0649</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <DefineConstants>DEBUG; TRUE _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_ENABLE_OVERSIZE_CELL_CHECK SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF SQLITE_DEFAULT_FOREIGN_KEYS </DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteClientFactory.cs">
+      <Link>Client\SQLiteClientFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteCommand.cs">
+      <Link>Client\SQLiteCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteCommandBuilder.cs">
+      <Link>Client\SQLiteCommandBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteConnection.cs">
+      <Link>Client\SQLiteConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteConnectionStringBuilder.cs">
+      <Link>Client\SQLiteConnectionStringBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteConvert.cs">
+      <Link>Client\SQLiteConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteDataAdapter.cs">
+      <Link>Client\SQLiteDataAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteDataReader.cs">
+      <Link>Client\SQLiteDataReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteDataSourceEnumerator.cs">
+      <Link>Client\SQLiteDataSourceEnumerator.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteError.cs">
+      <Link>Client\SQLiteError.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteExceptions.cs">
+      <Link>Client\SQLiteExceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteParameter.cs">
+      <Link>Client\SQLiteParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteParameterCollection.cs">
+      <Link>Client\SQLiteParameterCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteRowUpdatedEventArgs.cs">
+      <Link>Client\SQLiteRowUpdatedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteRowUpdatedEventHandler.cs">
+      <Link>Client\SQLiteRowUpdatedEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteRowUpdatingEventArgs.cs">
+      <Link>Client\SQLiteRowUpdatingEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteRowUpdatingEventHandler.cs">
+      <Link>Client\SQLiteRowUpdatingEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\Client\SQLiteTransaction.cs">
+      <Link>Client\SQLiteTransaction.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\alter_c.cs">
+      <Link>src\alter_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\analyze_c.cs">
+      <Link>src\analyze_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\attach_c.cs">
+      <Link>src\attach_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\auth_c.cs">
+      <Link>src\auth_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\backup_c.cs">
+      <Link>src\backup_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\bitvec_c.cs">
+      <Link>src\bitvec_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\btmutex_c.cs">
+      <Link>src\btmutex_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\BtreeInt_h.cs">
+      <Link>src\BtreeInt_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\btree_c.cs">
+      <Link>src\btree_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\Btree_h.cs">
+      <Link>src\Btree_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\build_c.cs">
+      <Link>src\build_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\callback_c.cs">
+      <Link>src\callback_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\complete_c.cs">
+      <Link>src\complete_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\crypto.cs">
+      <Link>src\crypto.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\ctime_c.cs">
+      <Link>src\ctime_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\date_c.cs">
+      <Link>src\date_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\Delegates.cs">
+      <Link>src\Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\delete_c.cs">
+      <Link>src\delete_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\expr_c.cs">
+      <Link>src\expr_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\fault_c.cs">
+      <Link>src\fault_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\fkey_c.cs">
+      <Link>src\fkey_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\func_c.cs">
+      <Link>src\func_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\global_c.cs">
+      <Link>src\global_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\hash_c.cs">
+      <Link>src\hash_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\Hash_h.cs">
+      <Link>src\Hash_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\hwtime_c.cs">
+      <Link>src\hwtime_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\insert_c.cs">
+      <Link>src\insert_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\journal_c.cs">
+      <Link>src\journal_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\keywordhash_h.cs">
+      <Link>src\keywordhash_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\legacy_c.cs">
+      <Link>src\legacy_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\loadext_c.cs">
+      <Link>src\loadext_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\main_c.cs">
+      <Link>src\main_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\malloc_c.cs">
+      <Link>src\malloc_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\memjournal_c.cs">
+      <Link>src\memjournal_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\mem_Pool.cs">
+      <Link>src\mem_Pool.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\mutex_c.cs">
+      <Link>src\mutex_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\mutex_h.cs">
+      <Link>src\mutex_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\mutex_noop_c.cs">
+      <Link>src\mutex_noop_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\mutex_w32.cs">
+      <Link>src\mutex_w32.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\notify_c.cs">
+      <Link>src\notify_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\opcodes_c.cs">
+      <Link>src\opcodes_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\opcodes_h.cs">
+      <Link>src\opcodes_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\os_c.cs">
+      <Link>src\os_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\os_common_h.cs">
+      <Link>src\os_common_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\os_h.cs">
+      <Link>src\os_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\os_win_c.cs">
+      <Link>src\os_win_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pager_c.cs">
+      <Link>src\pager_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pager_h.cs">
+      <Link>src\pager_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\parse_c.cs">
+      <Link>src\parse_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\parse_h.cs">
+      <Link>src\parse_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pcache1_c.cs">
+      <Link>src\pcache1_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pcache_c.cs">
+      <Link>src\pcache_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pcache_h.cs">
+      <Link>src\pcache_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\pragma_c.cs">
+      <Link>src\pragma_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\prepare_c.cs">
+      <Link>src\prepare_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\printf_c.cs">
+      <Link>src\printf_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\random_c.cs">
+      <Link>src\random_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\resolve_c.cs">
+      <Link>src\resolve_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\rowset_c.cs">
+      <Link>src\rowset_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\select_c.cs">
+      <Link>src\select_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\sqlite3_h.cs">
+      <Link>src\sqlite3_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\sqliteInt_h.cs">
+      <Link>src\sqliteInt_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\sqliteLimit_h.cs">
+      <Link>src\sqliteLimit_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\status_c.cs">
+      <Link>src\status_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\table_c.cs">
+      <Link>src\table_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\tokenize_c.cs">
+      <Link>src\tokenize_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\trigger_c.cs">
+      <Link>src\trigger_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\update_c.cs">
+      <Link>src\update_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\utf_c.cs">
+      <Link>src\utf_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\util_c.cs">
+      <Link>src\util_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vacuum_c.cs">
+      <Link>src\vacuum_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbeapi_c.cs">
+      <Link>src\vdbeapi_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbeaux_c.cs">
+      <Link>src\vdbeaux_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbeblob_c.cs">
+      <Link>src\vdbeblob_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\VdbeInt_h.cs">
+      <Link>src\VdbeInt_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbemem_c.cs">
+      <Link>src\vdbemem_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbetrace_c.cs">
+      <Link>src\vdbetrace_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vdbe_c.cs">
+      <Link>src\vdbe_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\Vdbe_h.cs">
+      <Link>src\Vdbe_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\vtab_c.cs">
+      <Link>src\vtab_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\walker_c.cs">
+      <Link>src\walker_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\wal_c.cs">
+      <Link>src\wal_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\wal_h.cs">
+      <Link>src\wal_h.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\where_c.cs">
+      <Link>src\where_c.cs</Link>
+    </Compile>
+    <Compile Include="..\Athena.SQLite\src\_Custom.cs">
+      <Link>src\_Custom.cs</Link>
+    </Compile>
+    <Compile Include="Client\SQLiteClientFactory.Entity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="SQL Generation\DmlSqlGenerator.cs" />
+    <Compile Include="SQL Generation\InternalBase.cs" />
+    <Compile Include="SQL Generation\ISqlFragment.cs" />
+    <Compile Include="SQL Generation\JoinSymbol.cs" />
+    <Compile Include="SQL Generation\KeyToListMap.cs" />
+    <Compile Include="SQL Generation\MetadataHelpers.cs" />
+    <Compile Include="SQL Generation\SkipClause.cs" />
+    <Compile Include="SQL Generation\SqlBuilder.cs" />
+    <Compile Include="SQL Generation\SqlChecker.cs" />
+    <Compile Include="SQL Generation\SqlGenerator.cs" />
+    <Compile Include="SQL Generation\SqlSelectStatement.cs" />
+    <Compile Include="SQL Generation\SqlWriter.cs" />
+    <Compile Include="SQL Generation\StringUtil.cs" />
+    <Compile Include="SQL Generation\Symbol.cs" />
+    <Compile Include="SQL Generation\SymbolPair.cs" />
+    <Compile Include="SQL Generation\SymbolTable.cs" />
+    <Compile Include="SQL Generation\TopClause.cs" />
+    <Compile Include="DdlBuilder.cs" />
+    <Compile Include="SQLiteProviderManifest.cs" />
+    <Compile Include="SQLiteProviderServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Resources\Common.ConceptualSchemaDefinition.csdl" />
+    <EmbeddedResource Include="Resources\Common.ProviderManifest.xsd" />
+    <EmbeddedResource Include="Resources\SQLiteProviderServices.ProviderManifest.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SQLiteProviderServices.StoreSchemaDefinition.ssdl" />
+    <EmbeddedResource Include="Resources\SQLiteProviderServices.StoreSchemaMapping.msl" />
+    <EmbeddedResource Include="Resources\System.Data.Resources.CodeGenerationSchema.xsd" />
+    <EmbeddedResource Include="Resources\System.Data.Resources.CSDLSchema.xsd" />
+    <EmbeddedResource Include="Resources\System.Data.Resources.CSMSL.xsd" />
+    <EmbeddedResource Include="Resources\System.Data.Resources.EntityStoreSchemaGenerator.xsd" />
+    <EmbeddedResource Include="Resources\System.Data.Resources.SSDLSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Athena.SQLite.Entity.nuspec" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>
