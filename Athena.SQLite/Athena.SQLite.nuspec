@@ -3,7 +3,7 @@
   <metadata>
     <id>csharpsqlite</id>
     <version>1.0.0.0</version>
-    <title>test</title>
+    <title>csharpsqlite core library</title>
     <authors>John Moore</authors>
     <owners>John Moore</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
@@ -17,7 +17,7 @@
     </description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags></tags>
   </metadata>
   <files>
     <file src="..\bin\Release\System.Data.SQLite.dll" target="lib\net40" />

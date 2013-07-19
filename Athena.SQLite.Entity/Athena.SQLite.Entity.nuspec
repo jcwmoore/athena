@@ -17,7 +17,7 @@
     </description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags></tags>
   </metadata>
   <files>
     <file src="..\bin\Release\System.Data.SQLite.Entity.dll" target="lib\net40" />
