@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FE16FD
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Enumerable", "Athena.Enumerable\Athena.Enumerable.csproj", "{13828F4E-8933-436B-A3F8-310E2D6FAFF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Extensoins", "Athena.Enumerable\Athena.Extensoins.csproj", "{13828F4E-8933-436B-A3F8-310E2D6FAFF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.IoC", "Athena.IoC\Athena.IoC.csproj", "{42B33947-30EB-4C86-B96C-D62AF2E04229}"
 EndProject
@@ -39,6 +39,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Mvc", "Athena.Mvc\Athena.Mvc.csproj", "{594EB2D5-6805-4F14-8AEF-B0628A870AAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Mvc.Tests", "Athena.Mvc.Tests\Athena.Mvc.Tests.csproj", "{7689F2B8-2049-4234-8052-BEC9B5F0D439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Extensions.Tests", "Athena.Extensions.Tests\Athena.Extensions.Tests.csproj", "{A8942139-29BC-4693-996C-66E26BD4EE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +92,10 @@ Global
 		{7689F2B8-2049-4234-8052-BEC9B5F0D439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7689F2B8-2049-4234-8052-BEC9B5F0D439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7689F2B8-2049-4234-8052-BEC9B5F0D439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8942139-29BC-4693-996C-66E26BD4EE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8942139-29BC-4693-996C-66E26BD4EE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8942139-29BC-4693-996C-66E26BD4EE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8942139-29BC-4693-996C-66E26BD4EE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,5 +112,9 @@ Global
 		{A7F67799-40B8-4782-9FF1-49CCC15F7EEA} = {668441EA-196D-4196-9F12-AF4020C14D3D}
 		{F3C729A0-E4B1-493B-8F9B-8DDE1A5092AD} = {668441EA-196D-4196-9F12-AF4020C14D3D}
 		{7689F2B8-2049-4234-8052-BEC9B5F0D439} = {668441EA-196D-4196-9F12-AF4020C14D3D}
+		{A8942139-29BC-4693-996C-66E26BD4EE2D} = {668441EA-196D-4196-9F12-AF4020C14D3D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

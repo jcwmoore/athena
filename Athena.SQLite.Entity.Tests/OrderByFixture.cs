@@ -109,8 +109,8 @@ namespace System.Data.SQLite.Tests.Entity
 			string last = "aaaa";
 			foreach(var d in r)
 			{
-				Assert.That(last.CompareTo(string.Format("{0}{1}", d.Address, d.EventDate)) <= 0);
-				last = string.Format("{0}{1}", d.Address, d.EventDate);
+				Assert.That(last.CompareTo(string.Format("{0}{1}", d.Address, d.EventDate.ToString("yyyyMMdd"))) <= 0);
+                last = string.Format("{0}{1}", d.Address, d.EventDate.ToString("yyyyMMdd"));
 			}
 		}
 		
