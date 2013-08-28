@@ -48,12 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Athena.Enumerable\Athena.Extensoins.csproj">
-      <Project>{13828f4e-8933-436b-a3f8-310e2d6faff1}</Project>
-      <Name>Athena.Extensoins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
