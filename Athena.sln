@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Mvc.Tests", "Athena.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Extensions.Tests", "Athena.Extensions.Tests\Athena.Extensions.Tests.csproj", "{A8942139-29BC-4693-996C-66E26BD4EE2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Extensoins", "Athena.Extensions\Athena.Extensoins.csproj", "{13828F4E-8933-436B-A3F8-310E2D6FAFF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Athena.Extensions", "Athena.Extensions\Athena.Extensions.csproj", "{13828F4E-8933-436B-A3F8-310E2D6FAFF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
