@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace Athena.IoC.Tests
+namespace IoC.Tests
 {
     [TestFixture]
-    public class DemeterFluentExtensionsFixture
+    public class IoCFluentExtensionsFixture
     {
         #region SetUp / TearDown
 

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Microsoft.Practices.Unity;
 using Ninject;
 
-namespace Athena.IoC.Tests.Performance
+namespace IoC.Tests.Performance
 {
     [TestFixture]
     public class ComplexDIPerformanceFixture
@@ -33,27 +33,27 @@ namespace Athena.IoC.Tests.Performance
             var start = DateTime.Now;
             for (int i = 0; i < _iterations; i++)
             {
-                var t = new MockObjectDemeter(container, new MockDIObject3(new MockDIObject2(new MockDIObject1())));
+                var t = new MockObjectIoC(container, new MockDIObject3(new MockDIObject2(new MockDIObject1())));
             }
             var end = DateTime.Now;
             Console.WriteLine(string.Format("{0} Complex DI, Total milliseconds elapsed: {1}", "Base Line", (end - start).TotalMilliseconds));
         }
 
         [Test]
-        public void DemeterComplexDITest()
+        public void IoCComplexDITest()
         {
             var container = new Container();
             container.Register<MockDIObject1>().ToItsSelf().AsTransient();
             container.Register<MockDIObject2>().ToItsSelf().AsTransient();
             container.Register<MockDIObject3>().ToItsSelf().AsTransient();
-            container.Register<MockObject>().To<MockObjectDemeter>().AsTransient();
+            container.Register<MockObject>().To<MockObjectIoC>().AsTransient();
             var start = DateTime.Now;
             for (int i = 0; i < _iterations; i++)
             {
                 var t = container.Resolve<MockObject>();
             }
             var end = DateTime.Now;
-            Console.WriteLine(string.Format("{0} Complex DI, Total milliseconds elapsed: {1}", "Demeter", (end - start).TotalMilliseconds));
+            Console.WriteLine(string.Format("{0} Complex DI, Total milliseconds elapsed: {1}", "IoC", (end - start).TotalMilliseconds));
         }
 
         [Test]
@@ -148,9 +148,9 @@ namespace Athena.IoC.Tests.Performance
             }
         }
 
-        private class MockObjectDemeter : MockObject
+        private class MockObjectIoC : MockObject
         {
-            public MockObjectDemeter(Container c, MockDIObject3 o3)
+            public MockObjectIoC(Container c, MockDIObject3 o3)
             {
 
             }

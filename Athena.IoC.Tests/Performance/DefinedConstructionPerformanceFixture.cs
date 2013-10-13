@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Microsoft.Practices.Unity;
 using Ninject;
 
-namespace Athena.IoC.Tests.Performance
+namespace IoC.Tests.Performance
 {
     [TestFixture]
     public class DefinedConstructionPerformanceFixture
@@ -28,7 +28,7 @@ namespace Athena.IoC.Tests.Performance
         #region Tests
 
         [Test]
-        public void DemeterDefinedTest()
+        public void IoCDefinedTest()
         {
             var container = new Container();
             container.Register<MockObject>().To<MockObject>().ConstructAs(j => new MockObject()).AsTransient();
@@ -38,7 +38,7 @@ namespace Athena.IoC.Tests.Performance
                 var t = container.Resolve<MockObject>();
             }
             var end = DateTime.Now;
-            Console.WriteLine(string.Format("{0} Defined Constructor, Total milliseconds elapsed: {1}", "Demeter", (end - start).TotalMilliseconds));
+            Console.WriteLine(string.Format("{0} Defined Constructor, Total milliseconds elapsed: {1}", "IoC", (end - start).TotalMilliseconds));
         }
 
         [Test]

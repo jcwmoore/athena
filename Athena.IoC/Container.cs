@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Athena.IoC
+namespace IoC
 {
     public sealed partial class Container : IDisposable
     {
@@ -17,9 +17,17 @@ namespace Athena.IoC
         /// <summary>
         /// Begins the registration syntax, must invoke the To operation to persist the registration
         /// </summary>
-        public DemeterRegistationContext<TType> Register<TType>()
+        public IoCRegistationContext<TType> Register<TType>()
         {
             return new RegistrationContext<TType>(this);
+        }
+
+        /// <summary>
+        /// Shortcut for the registration syntax to quickly register a singleton
+        /// </summary>
+        public IoCRegistration<TType, TType> Register<TType>(TType inst) where TType : class
+        {
+            return new RegistrationContext<TType>(this).To(inst);
         }
 
         /// <summary>
@@ -101,7 +109,7 @@ namespace Athena.IoC
         }
 
 
-        internal class TransientLifecycle<TInterface> : IDemeterLifeCycleManager<TInterface>
+        internal class TransientLifecycle<TInterface> : IIoCLifeCycleManager<TInterface>
         {
             protected readonly ResolutionInfo<TInterface> _info;
             public TransientLifecycle(ResolutionInfo<TInterface> info)
@@ -162,7 +170,7 @@ namespace Athena.IoC
             }
         }
 
-        private class RegistrationContext<TInterface> : DemeterRegistationContext<TInterface>
+        private class RegistrationContext<TInterface> : IoCRegistationContext<TInterface>
         {
             private readonly Container _container;
             private readonly ResolutionInfo<TInterface> _info = new ResolutionInfo<TInterface>();
@@ -191,7 +199,7 @@ namespace Athena.IoC
                 _container._resolutionMap[typeof(TInterface)].Add(_info.Name, _info);
             }
 
-            public override DemeterRegistration<TInterface, TImplementation> As<TImplementation>(Func<Container, TImplementation> fun)
+            public override IoCRegistration<TInterface, TImplementation> As<TImplementation>(Func<Container, TImplementation> fun)
             {
                 BuildBase<TImplementation>();
                 _info.IsReflectionBuild = false;
@@ -200,7 +208,7 @@ namespace Athena.IoC
                 return new Registration<TInterface, TImplementation>(_info);
             }
 
-            public override DemeterRegistration<TInterface, TImplementation> To<TImplementation>()
+            public override IoCRegistration<TInterface, TImplementation> To<TImplementation>()
             {
                 BuildBase<TImplementation>();
                 if (typeof(TImplementation).IsAbstract)
@@ -211,7 +219,7 @@ namespace Athena.IoC
                 return new Registration<TInterface, TImplementation>(_info);
             }
 
-            public DemeterRegistration<TInterface, TImplementation> ToDynamically<TImplementation>() where TImplementation : TInterface
+            public IoCRegistration<TInterface, TImplementation> ToDynamically<TImplementation>() where TImplementation : TInterface
             {
                 if (typeof(TImplementation).IsAbstract)
                 {
@@ -222,14 +230,14 @@ namespace Athena.IoC
                 return new Registration<TInterface, TImplementation>(_info);
             }
 
-            public override DemeterRegistration<TInterface, TImplementation> To<TImplementation>(TImplementation ti)
+            public override IoCRegistration<TInterface, TImplementation> To<TImplementation>(TImplementation ti)
             {
                 BuildBase<TImplementation>();
                 _info.LifeCycleManager = new SingletonObjectLifecycle<TInterface, TImplementation>(_info, ti);
                 return new Registration<TInterface, TImplementation>(_info);
             }
 
-            public override DemeterRegistration<TInterface, TImplementation> ToValue<TImplementation>(TImplementation ti)
+            public override IoCRegistration<TInterface, TImplementation> ToValue<TImplementation>(TImplementation ti)
             {
                 BuildBase<TImplementation>();
                 _info.LifeCycleManager = new SingletonStructLifecycle<TInterface, TImplementation>(_info, ti);
@@ -237,7 +245,7 @@ namespace Athena.IoC
             }
         }
 
-        private class Registration<TInterface, TImplementation> : DemeterRegistration<TInterface, TImplementation> where TImplementation : TInterface
+        private class Registration<TInterface, TImplementation> : IoCRegistration<TInterface, TImplementation> where TImplementation : TInterface
         {
             private readonly ResolutionInfo<TInterface> _info;
             private Func<Container, TImplementation> _fun;
@@ -248,7 +256,7 @@ namespace Athena.IoC
                 _info = info;
             }
 
-            public override DemeterRegistration<TInterface, TImplementation> ConstructAs(Func<Container, TImplementation> fun)
+            public override IoCRegistration<TInterface, TImplementation> ConstructAs(Func<Container, TImplementation> fun)
             {
                 _fun = fun;
                 _info.BuildInstance = (c) => _fun(c);
@@ -261,7 +269,7 @@ namespace Athena.IoC
         {
             public Container Container { get; set; }
             public string Name { get; set; }
-            public abstract IDemeterObjectManager ObjectManager { get; }
+            public abstract IIoCObjectManager ObjectManager { get; }
             public Container ParentContainer { get; set; }
             public System.Reflection.ConstructorInfo ConstructorInfo { get; set; }
             public System.Reflection.ParameterInfo[] Parameters { get; set; }
@@ -272,8 +280,8 @@ namespace Athena.IoC
             public TInterface Singleton { get; set; }
             public bool IsReflectionBuild { get; set; }
             public Func<Container, TInterface> BuildInstance { get; set; }
-            public IDemeterLifeCycleManager<TInterface> LifeCycleManager { get; set; }
-            public override IDemeterObjectManager ObjectManager { get { return LifeCycleManager; } }
+            public IIoCLifeCycleManager<TInterface> LifeCycleManager { get; set; }
+            public override IIoCObjectManager ObjectManager { get { return LifeCycleManager; } }
         }
     }
 
@@ -312,29 +320,29 @@ namespace Athena.IoC
     /// This is the pre registration object, any pre-registration operations (i.e. naming) will happen on this object
     /// </summary>
     /// <typeparam name="TInterface">Interface/Abstract type</typeparam>
-    public abstract class DemeterRegistationContext<TInterface>
+    public abstract class IoCRegistationContext<TInterface>
     {
         internal abstract Container.ResolutionInfo<TInterface> ResolutionInfo { get; }
 
         /// <summary>
         /// 
         /// </summary>
-        public abstract DemeterRegistration<TInterface, TImplementation> As<TImplementation>(Func<Container, TImplementation> fun) where TImplementation : TInterface;
+        public abstract IoCRegistration<TInterface, TImplementation> As<TImplementation>(Func<Container, TImplementation> fun) where TImplementation : TInterface;
 
         /// <summary>
         /// Assigns the registration to a concert type as a transient
         /// </summary>
-        public abstract DemeterRegistration<TInterface, TImplementation> To<TImplementation>() where TImplementation : class, TInterface;
+        public abstract IoCRegistration<TInterface, TImplementation> To<TImplementation>() where TImplementation : class, TInterface;
 
         /// <summary>
         /// Assigns the registration to a concert type with a predefined object as a singleton
         /// </summary>
-        public abstract DemeterRegistration<TInterface, TImplementation> To<TImplementation>(TImplementation ti) where TImplementation : class, TInterface;
+        public abstract IoCRegistration<TInterface, TImplementation> To<TImplementation>(TImplementation ti) where TImplementation : class, TInterface;
 
         /// <summary>
         /// Assigns the registration to a concert type with a predefined object as a singleton
         /// </summary>
-        public abstract DemeterRegistration<TInterface, TImplementation> ToValue<TImplementation>(TImplementation ti) where TImplementation : struct, TInterface;
+        public abstract IoCRegistration<TInterface, TImplementation> ToValue<TImplementation>(TImplementation ti) where TImplementation : struct, TInterface;
     }
 
     /// <summary>
@@ -343,7 +351,7 @@ namespace Athena.IoC
     /// </summary>
     /// <typeparam name="TInterface">Interface/Abstract type</typeparam>
     /// <typeparam name="TImplementation">Concrete type</typeparam>
-    public abstract class DemeterRegistration<TInterface, TImplementation> where TImplementation : TInterface
+    public abstract class IoCRegistration<TInterface, TImplementation> where TImplementation : TInterface
     {
         internal abstract Container.ResolutionInfo<TInterface> ResolutionInfo { get; }
 
@@ -351,13 +359,13 @@ namespace Athena.IoC
         /// Provides the registration with a direct method for building an instance
         /// </summary>
         /// <returns>the original object</returns>
-        public abstract DemeterRegistration<TInterface, TImplementation> ConstructAs(Func<Container, TImplementation> fun);
+        public abstract IoCRegistration<TInterface, TImplementation> ConstructAs(Func<Container, TImplementation> fun);
     }
 
     /// <summary>
-    /// This is the base (non-generic) interface for object life cycle managers, custom life cycles should always implement <see cref="IDemeterLifeCycleManager"/>
+    /// This is the base (non-generic) interface for object life cycle managers, custom life cycles should always implement <see cref="IIoCLifeCycleManager"/>
     /// </summary>
-    public interface IDemeterObjectManager : IDisposable
+    public interface IIoCObjectManager : IDisposable
     {
         /// <summary>
         /// returns a non-generic object instance
@@ -366,10 +374,10 @@ namespace Athena.IoC
     }
 
     /// <summary>
-    /// Interface for all life cycle managers.  The life cycle manager for a <see cref="ResolutionInfo"/> can be set by an extension method on the <see cref="DemeterRegistration"/> class.
+    /// Interface for all life cycle managers.  The life cycle manager for a <see cref="ResolutionInfo"/> can be set by an extension method on the <see cref="IoCRegistration"/> class.
     /// </summary>
     /// <typeparam name="TInterface">Interface type, this is not the same as the concrete implementation type</typeparam>
-    public interface IDemeterLifeCycleManager<TInterface> : IDemeterObjectManager
+    public interface IIoCLifeCycleManager<TInterface> : IIoCObjectManager
     {
         /// <summary>
         /// Provides a generic object instance, as the interface type, for this Lifecycle

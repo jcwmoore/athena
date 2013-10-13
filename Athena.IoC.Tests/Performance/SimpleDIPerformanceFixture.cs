@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Microsoft.Practices.Unity;
 using Ninject;
 
-namespace Athena.IoC.Tests
+namespace IoC.Tests
 {
     [TestFixture]
     public class SimpleDIPerformanceFixture
@@ -28,17 +28,17 @@ namespace Athena.IoC.Tests
         #region Tests
 
         [Test]
-        public void DemeterSimpleDITest()
+        public void IoCSimpleDITest()
         {
             var container = new Container();
-            container.Register<MockObject>().To<MockObjectDemeter>().AsTransient();
+            container.Register<MockObject>().To<MockObjectIoC>().AsTransient();
             var start = DateTime.Now;
             for (int i = 0; i < _iterations; i++)
             {
                 var t = container.Resolve<MockObject>();
             }
             var end = DateTime.Now;
-            Console.WriteLine(string.Format("{0} Simple DI, Total milliseconds elapsed: {1}", "Demeter", (end - start).TotalMilliseconds));
+            Console.WriteLine(string.Format("{0} Simple DI, Total milliseconds elapsed: {1}", "IoC", (end - start).TotalMilliseconds));
         }
 
         [Test] // this is not really a valid test because I can't register an object into HaveBox
@@ -103,9 +103,9 @@ namespace Athena.IoC.Tests
 
         private abstract class MockObject { }
 
-        private class MockObjectDemeter : MockObject
+        private class MockObjectIoC : MockObject
         {
-            public MockObjectDemeter(Container c)
+            public MockObjectIoC(Container c)
             {
 
             }

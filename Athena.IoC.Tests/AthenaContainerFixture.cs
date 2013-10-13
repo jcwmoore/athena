@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace Athena.IoC.Tests
+namespace IoC.Tests
 {
     [TestFixture]
-    public class DemeterFixture
+    public class IoCFixture
     {
         #region SetUp / TearDown
 
@@ -191,6 +191,16 @@ namespace Athena.IoC.Tests
             var container = new Container();
             IMyInterface obj = new MyClass(new MockSimpleObject(), new MockContainerObject(container));
             container.Register<IMyInterface>().To(obj);
+            var res = container.Resolve<IMyInterface>();
+            Assert.That(res, Is.SameAs(obj));
+        }
+
+        [Test(Description = "You can register an interface to itself as a singleton")]
+        public void ContainerQuickRegisterInterfaceSingletonTest()
+        {
+            var container = new Container();
+            IMyInterface obj = new MyClass(new MockSimpleObject(), new MockContainerObject(container));
+            container.Register(obj);
             var res = container.Resolve<IMyInterface>();
             Assert.That(res, Is.SameAs(obj));
         }

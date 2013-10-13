@@ -7,7 +7,7 @@ using Microsoft.Practices.Unity;
 using Ninject;
 
 
-namespace Athena.IoC.Tests.Performance
+namespace IoC.Tests.Performance
 {
     [TestFixture]
     public class SimpleMultiInstancePerformanceFixture
@@ -41,7 +41,7 @@ namespace Athena.IoC.Tests.Performance
         }
 
         [Test]
-        public void DemeterMultiInstanceTest()
+        public void IoCMultiInstanceTest()
         {
             var container = new Container();
             container.Register<MockObject1>().ToItsSelf().AsTransient();
@@ -52,7 +52,7 @@ namespace Athena.IoC.Tests.Performance
                 var u = container.Resolve<MockObject2>();
             }
             var end = DateTime.Now;
-            Console.WriteLine(string.Format("{0} MultiInstance, Total milliseconds elapsed: {1}", "Demeter", (end - start).TotalMilliseconds));
+            Console.WriteLine(string.Format("{0} MultiInstance, Total milliseconds elapsed: {1}", "IoC", (end - start).TotalMilliseconds));
         }
 
         [Test]
