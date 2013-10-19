@@ -31,6 +31,30 @@ namespace IoC
         }
 
         /// <summary>
+        /// Returns the default implementation of the provided type
+        /// </summary>
+        public object Resolve(Type type)
+        {
+            return Resolve(type, DEFAULT_INSTANCE_NAME);
+        }
+
+        /// <summary>
+        /// Returns the named implementation of the provided type
+        /// </summary>
+        public object Resolve(Type t, string name)
+        {
+            if (!_resolutionMap.ContainsKey(t))
+            {
+                throw new ResolutionException(string.Format("The requested type is not available: {0}", t.Name), t);
+            }
+            if (!_resolutionMap[t].ContainsKey(name))
+            {
+                throw new ResolutionException(string.Format("The requested type, {0}, is not available with name {1}", t.Name, name), t);
+            }
+            return _resolutionMap[t][name].ObjectManager.GetObject();
+        }
+
+        /// <summary>
         /// Returns the default implementation of <typeparamref name="TType"/> 
         /// </summary>
         public TType Resolve<TType>()
@@ -65,14 +89,38 @@ namespace IoC
         /// </summary>
         public IEnumerable<TType> ResolveAll<TType>()
         {
-            if (_resolutionMap.ContainsKey(typeof(TType)) && _resolutionMap[typeof(TType)].ContainsKey(DEFAULT_INSTANCE_NAME))
+            if (_resolutionMap.ContainsKey(typeof(TType)))
             {
-                yield return Resolve<TType>();
+                if (_resolutionMap[typeof(TType)].ContainsKey(DEFAULT_INSTANCE_NAME))
+                {
+                    yield return Resolve<TType>();
+                }
+                var names = _resolutionMap[typeof(TType)].Keys.Where(k => k != DEFAULT_INSTANCE_NAME).ToList();
+                foreach (var n in names)
+                {
+                    yield return Resolve<TType>(n);
+                }
             }
-            var names = _resolutionMap[typeof(TType)].Keys.Where(k => k != DEFAULT_INSTANCE_NAME).ToList();
-            foreach (var n in names)
+        }
+
+        /// <summary>
+        /// Returns a lazily loaded collection of all registrations of the provided type with the
+        /// default implementation as the first in the collection
+        /// </summary>
+        public IEnumerable<object> ResolveAll(Type type)
+        {
+            if (_resolutionMap.ContainsKey(type))
             {
-                yield return Resolve<TType>(n);
+                if (_resolutionMap[type].ContainsKey(DEFAULT_INSTANCE_NAME))
+                {
+                    yield return Resolve(type);
+                }
+
+                var names = _resolutionMap[type].Keys.Where(k => k != DEFAULT_INSTANCE_NAME).ToList();
+                foreach (var n in names)
+                {
+                    yield return Resolve(type, n);
+                }
             }
         }
 

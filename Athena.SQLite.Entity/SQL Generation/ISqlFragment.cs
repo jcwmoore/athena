@@ -10,7 +10,7 @@
 
 namespace System.Data.SQLite
 {
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// Represents the sql fragment for any node in the query tree.

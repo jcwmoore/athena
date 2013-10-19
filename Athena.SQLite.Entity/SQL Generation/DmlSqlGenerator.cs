@@ -17,8 +17,8 @@ namespace System.Data.SQLite
 	using System.Text;
 	using System.Data;
 	using System.Data.Common;
-	using System.Data.Metadata.Edm;
-	using System.Data.Common.CommandTrees;
+	using System.Data.Entity.Core.Metadata.Edm;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// Class generating SQL for a DML command tree.

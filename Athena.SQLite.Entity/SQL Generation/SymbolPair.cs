@@ -11,7 +11,7 @@
 namespace System.Data.SQLite
 {
 	using System.Diagnostics;
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// The SymbolPair exists to solve the record flattening problem.

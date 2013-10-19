@@ -12,7 +12,7 @@ namespace System.Data.SQLite
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// The symbol table is quite primitive - it is a stack with a new entry for

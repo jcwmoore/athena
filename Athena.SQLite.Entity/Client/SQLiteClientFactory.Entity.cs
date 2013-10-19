@@ -27,10 +27,11 @@
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Data.Entity.Infrastructure;
 
 namespace System.Data.SQLite
 {
-	public partial class SQLiteClientFactory : IServiceProvider
+	public partial class SQLiteClientFactory : IServiceProvider, IDbConnectionFactory
 	{
 		#region IServiceProvider implementation
 		
@@ -41,6 +42,11 @@ namespace System.Data.SQLite
 		
 		#endregion
 
-	}
+
+        public DbConnection CreateConnection(string nameOrConnectionString)
+        {
+            return new SQLiteConnection(nameOrConnectionString);
+        }
+    }
 }
 

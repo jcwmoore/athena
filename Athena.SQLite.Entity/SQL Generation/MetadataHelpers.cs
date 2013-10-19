@@ -13,7 +13,7 @@ namespace System.Data.SQLite
 	using System;
 	using System.Data;
 	using System.Collections.Generic;
-	using System.Data.Metadata.Edm;
+    using System.Data.Entity.Core.Metadata.Edm;
 	using System.Diagnostics;
 
 	/// <summary>

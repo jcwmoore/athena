@@ -13,7 +13,7 @@ namespace System.Data.SQLite
 	using System;
 	using System.Collections.Generic;
 	using System.Diagnostics;
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// This class is like StringBuilder.  While traversing the tree for the first time, 
@@ -55,7 +55,7 @@ namespace System.Data.SQLite
 		/// </summary>
 		public void AppendLine()
 		{
-			sqlFragments.Add("\r\n");
+			sqlFragments.Add(Environment.NewLine);
 		}
 
 		/// <summary>

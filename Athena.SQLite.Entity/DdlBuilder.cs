@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Metadata.Edm;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -24,10 +24,13 @@ namespace System.Data.SQLite
 			DdlBuilder builder = new DdlBuilder();
 
 			builder.AppendSql(@"
-CREATE TABLE IF NOT EXISTS __MigrationHistory (
-	MigrationId TEXT NOT NULL,
-	Model BINARY NOT NULL,
-	ProductVersion TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS [__MigrationHistory] (
+    [MigrationId] [TEXT] NOT NULL,
+    [ContextKey] [TEXT] NOT NULL,
+    [Model] [BLOB] NOT NULL,
+    [ProductVersion] [TEXT] NOT NULL,
+    PRIMARY KEY ([MigrationId], [ContextKey])
+);
 ");
 
 			foreach (EntityContainer container in itemCollection.GetItems<EntityContainer>())
@@ -187,6 +190,8 @@ END;";
 
 				if (entitySet.ElementType.KeyMembers.Count > 1)
 				{
+                    AppendSql(",");
+                    AppendSql(Environment.NewLine);
 					AppendSql("    PRIMARY KEY (");
 					AppendJoin(entitySet.ElementType.KeyMembers, k => AppendIdentifier(k.Name), ", ");
 					AppendSql(")");
@@ -380,7 +385,7 @@ END;";
 		/// </summary>
 		private void AppendNewLine()
 		{
-			stringBuilder.Append("\r\n");
+			stringBuilder.Append(Environment.NewLine);
 		}
 
 		/// <summary>

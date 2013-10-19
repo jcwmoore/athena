@@ -12,7 +12,7 @@ namespace System.Data.SQLite
 {
 	using System.Collections.Generic;
 	using System.Diagnostics;
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	/// <summary>
 	/// A SqlSelectStatement represents a canonical SQL SELECT statement.

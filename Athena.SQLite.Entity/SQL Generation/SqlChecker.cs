@@ -9,7 +9,7 @@ namespace System.Data.SQLite
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Data.Common.CommandTrees;
+    using System.Data.Entity.Core.Common.CommandTrees;
 
 	internal class SqlChecker : DbExpressionVisitor<bool>
 	{

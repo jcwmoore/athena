@@ -411,7 +411,7 @@ namespace System.Data.SQLite
 			string queryval = sql.Trim();
 			string pzTail = sql.Trim();
 			IntPtr errMsgPtr;
-
+            Console.WriteLine(queryval);
 			parent_conn.StartExec();
 
 			rows_affected = 0;

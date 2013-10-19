@@ -47,16 +47,16 @@ namespace System.Data.SQLite.Tests.Entity
 		public void Setup()
 		{
 			_db = string.Format("Data Source={0}.db3", Guid.NewGuid());
-			using (var conn = new SQLiteConnection(_db))
-				using (var cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
-				cmd.ExecuteNonQuery();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Rsvps (RsvpId INTEGER PRIMARY KEY AUTOINCREMENT, DinnerId INTEGER NOT NULL REFERENCES Dinners(DinnerId), Email TEXT);";
-				cmd.ExecuteNonQuery();
-			}
-			Database.SetInitializer<NerdDinners>(null);
+            //using (var conn = new SQLiteConnection(_db))
+            //    using (var cmd = conn.CreateCommand())
+            //{
+            //    conn.Open();
+            //    cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
+            //    cmd.ExecuteNonQuery();
+            //    cmd.CommandText = "CREATE TABLE IF NOT EXISTS Rsvps (RsvpId INTEGER PRIMARY KEY AUTOINCREMENT, DinnerId INTEGER NOT NULL REFERENCES Dinners(DinnerId), Email TEXT);";
+            //    cmd.ExecuteNonQuery();
+            //}
+            //Database.SetInitializer<NerdDinners>(null);
 		}
 		
 		[TearDown]
@@ -67,18 +67,21 @@ namespace System.Data.SQLite.Tests.Entity
 		[Test()]
 		public void SimpleCountTest()
 		{
-			var ctx = new NerdDinners(new SQLiteConnection(_db));
-			var dinner = new Dinner { Address = "test1", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.1 };
-			ctx.Dinners.Add(dinner);
-			ctx.Dinners.Add(new Dinner { Address = "test2", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.2 });
-			ctx.Dinners.Add(new Dinner { Address = "test3", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.3 });
-			ctx.Dinners.Add(new Dinner { Address = "test4", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.4 });
-			ctx.Dinners.Add(new Dinner { Address = "test5", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.5 });
-			ctx.SaveChanges();
-			ctx.Dispose();
-			ctx = new NerdDinners(new SQLiteConnection(_db));
-			var res = ctx.Dinners.Count();
-			Assert.That(res, Is.EqualTo(5));
+            using (var ctx = new NerdDinners(new SQLiteConnection(_db)))
+            {
+                var dinner = new Dinner { Address = "test1", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.1 };
+                ctx.Dinners.Add(dinner);
+                ctx.Dinners.Add(new Dinner { Address = "test2", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.2 });
+                ctx.Dinners.Add(new Dinner { Address = "test3", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.3 });
+                ctx.Dinners.Add(new Dinner { Address = "test4", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.4 });
+                ctx.Dinners.Add(new Dinner { Address = "test5", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.5 });
+                ctx.SaveChanges();
+            }
+            using (var ctx = new NerdDinners(new SQLiteConnection(_db)))
+            {
+                var res = ctx.Dinners.Count();
+                Assert.That(res, Is.EqualTo(5));
+            }
 		}
 		[Test()]
 		public void CountContidionalTest()

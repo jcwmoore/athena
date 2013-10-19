@@ -54,11 +54,11 @@ namespace System.Data.SQLite.Tests.Entity
 		public string Email { get; set; }
 		public virtual Dinner Dinner { get; set; }
 	}
+    [SQLite.Entity.SQLiteConfiguration]
 	public class NerdDinners : DbContext
 	{
-		public NerdDinners(System.Data.Common.DbConnection conn) : base(conn, false)
+		public NerdDinners(System.Data.Common.DbConnection conn) : base(conn, true)
 		{
-			
 		}
 		
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -89,6 +89,7 @@ namespace System.Data.SQLite.Tests.Entity
 
 		public virtual DbSet<Dinner> Dinners { get; set; }
 		public virtual DbSet<Rsvp> Rsvps { get; set; }
+
 	}
 }
 

@@ -9,12 +9,13 @@ namespace System.Data.SQLite
 {
 	using System;
 	using System.Data.Common;
-	using System.Data.Common.CommandTrees;
-	using System.Data.Metadata.Edm;
+    using System.Data.Entity.Core.Common.CommandTrees;
+    using System.Data.Entity.Core.Metadata.Edm;
 	using System.Diagnostics;
 	using System.Collections.Generic;
 	using System.Text;
 	using System.Globalization;
+    using System.Data.Entity.Core.Common;
 
 	public class SQLiteProviderServices : DbProviderServices
 	{
