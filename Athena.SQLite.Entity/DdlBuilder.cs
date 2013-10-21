@@ -17,7 +17,8 @@ namespace System.Data.SQLite
 	sealed class DdlBuilder
 	{
 		private readonly StringBuilder stringBuilder = new StringBuilder();
-		private readonly HashSet<EntitySet> ignoredEntitySets = new HashSet<EntitySet>();
+        private readonly HashSet<EntitySet> ignoredEntitySets = new HashSet<EntitySet>();
+        internal static bool GenerateForeignKeys { get; set; }
 
 		internal static string CreateObjectsScript(StoreItemCollection itemCollection)
 		{
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS [__MigrationHistory] (
 
 			foreach (EntityContainer container in itemCollection.GetItems<EntityContainer>())
 			{
+                
 				var entitySets = container.BaseEntitySets.OfType<EntitySet>().OrderBy(s => s.Name);
 
 				//var schemas = new HashSet<string>(entitySets.Select(s => GetSchemaName(s)));
@@ -53,10 +55,14 @@ CREATE TABLE IF NOT EXISTS [__MigrationHistory] (
 				}
 
 				// SQLITE does not support the ADD CONSTRAINT to the alter table command, but we can fake it with triggers
-				//foreach (AssociationSet associationSet in container.BaseEntitySets.OfType<AssociationSet>().OrderBy(s => s.Name))
-				//{
-				//    builder.AppendCreateForeignKeys(associationSet);
-				//}
+                if (GenerateForeignKeys)
+                {
+                    foreach (AssociationSet associationSet in container.BaseEntitySets.OfType<AssociationSet>().OrderBy(s => s.Name))
+                    {
+                        builder.AppendCreateForeignKeys(associationSet);
+                    }
+                }
+                GenerateForeignKeys = false;
 			}
 			return builder.GetCommandText();
 		}
@@ -126,34 +132,61 @@ CREATE TABLE IF NOT EXISTS [__MigrationHistory] (
 			else
 			{
 //				0 = FK Name
-//				1 = Child table
-//				2 = Child FK
-//				3 = Parent table
-//				4 = Parent PK
-				var sql = @"
-CREATE TRIGGER {0}
-	BEFORE INSERT ON CHILD
+//				1 = Parent table
+//				2 = Parent FK
+//				3 = Child table
+//				4 = Child PK
+                var sql = @"
+CREATE TRIGGER [FK_{0}_Insert]
+	BEFORE INSERT ON [{3}]
 		FOR EACH ROW BEGIN
-		SELECT RAISE(ROLLBACK, 'insert on table ""{1}"" violates foreign key constraint ""{0}""')
-		WHERE  (SELECT {4} FROM {3} WHERE id = {1}.{2}) IS NULL;
+		SELECT RAISE(ROLLBACK, 'update on table ""[{1}]"" violates foreign key constraint ""[{0}]""')
+		WHERE  (SELECT 1 FROM [{1}] WHERE [{2}] = NEW.[{4}] OR NEW.[{4}] IS NULL) IS NULL;
+END;
+CREATE TRIGGER [FK_{0}_Update]
+	BEFORE UPDATE OF [{4}] ON [{3}]
+		FOR EACH ROW BEGIN
+		SELECT RAISE(ROLLBACK, 'insert on table ""[{1}]"" violates foreign key constraint ""[{0}]""')
+		WHERE  (SELECT 1 FROM [{1}] WHERE [{2}] = NEW.[{4}] OR NEW.[{4}] IS NULL) IS NULL;
 END;";
-				//AppendSql(string.Format(sql, associationSet.Name, )); 
-				AppendSql("alter table ");
-				AppendIdentifier(dependentEnd.EntitySet);
-				AppendSql(" add constraint ");
-				AppendIdentifier(associationSet.Name);
-				AppendSql(" foreign key (");
-				AppendIdentifiers(constraint.ToProperties);
-				AppendSql(") references ");
-				AppendIdentifier(principalEnd.EntitySet);
-				AppendSql("(");
-				AppendIdentifiers(constraint.FromProperties);
-				AppendSql(")");
-				if (principalEnd.CorrespondingAssociationEndMember.DeleteBehavior == OperationAction.Cascade)
-				{
-					AppendSql(" on delete cascade");
-				}
-				AppendSql(";");
+                var trigger = string.Format(sql, associationSet.Name, principalEnd.EntitySet.Table, constraint.ToProperties.First().Name, dependentEnd.EntitySet.Table, constraint.ToProperties.First().Name);
+                AppendSql(trigger);
+                if (principalEnd.CorrespondingAssociationEndMember.DeleteBehavior == OperationAction.Cascade)
+                {
+                    sql = @"
+CREATE TRIGGER [FK_{0}_Delete]
+	BEFORE DELETE ON [{1}]
+		FOR EACH ROW BEGIN
+		DELETE FROM [{3}] WHERE [{4}] = OLD.[{2}];
+END;";
+                    trigger = string.Format(sql, associationSet.Name, principalEnd.EntitySet.Table, constraint.ToProperties.First().Name, dependentEnd.EntitySet.Table, constraint.ToProperties.First().Name);
+                    AppendSql(trigger);
+                }
+                else
+                {
+                    sql = @"
+CREATE TRIGGER [FK_{0}_Delete]
+	BEFORE DELETE ON [{1}]
+		FOR EACH ROW BEGIN
+		SELECT RAISE(ROLLBACK, 'delete on table ""[{1}]"" violates foreign key constraint ""[{0}]""')
+		WHERE  (SELECT 1 FROM [{3}] WHERE [{4}] = OLD.[{2}]) IS NOT NULL;
+END;";
+                    trigger = string.Format(sql, associationSet.Name, principalEnd.EntitySet.Table, constraint.ToProperties.First().Name, dependentEnd.EntitySet.Table, constraint.ToProperties.First().Name);
+                    AppendSql(trigger);
+                }
+                //AppendSql("alter table ");
+                //AppendIdentifier(dependentEnd.EntitySet);
+                //AppendSql(" add constraint ");
+                //AppendIdentifier(associationSet.Name);
+                //AppendSql(" foreign key (");
+                //AppendIdentifiers(constraint.ToProperties);
+                //AppendSql(") references ");
+                //AppendIdentifier(principalEnd.EntitySet);
+                //AppendSql("(");
+                //AppendIdentifiers(constraint.FromProperties);
+                //AppendSql(")");
+                
+				//AppendSql(";");
 			}
 			AppendNewLine();
 		}
@@ -397,7 +430,8 @@ END;";
 		{
 			stringBuilder.AppendFormat(CultureInfo.InvariantCulture, format, args);
 		}
-	}
+
+    }
 
 	internal static class MetadataHelper
 	{

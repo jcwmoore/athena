@@ -42,16 +42,16 @@ namespace System.Data.SQLite.Tests.Entity
 		public void Setup()
 		{
 			_db = string.Format("Data Source={0}.db3", Guid.NewGuid());
-			using (var conn = new SQLiteConnection(_db))
-			using (var cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
-				cmd.ExecuteNonQuery();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Rsvps (RsvpId INTEGER PRIMARY KEY AUTOINCREMENT, DinnerId INTEGER NOT NULL REFERENCES Dinners(DinnerId), Email TEXT);";
-				cmd.ExecuteNonQuery();
-			}
-			Database.SetInitializer<NerdDinners>(null);
+            //using (var conn = new SQLiteConnection(_db))
+            //using (var cmd = conn.CreateCommand())
+            //{
+            //    conn.Open();
+            //    cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
+            //    cmd.ExecuteNonQuery();
+            //    cmd.CommandText = "CREATE TABLE IF NOT EXISTS Rsvps (RsvpId INTEGER PRIMARY KEY AUTOINCREMENT, DinnerId INTEGER NOT NULL REFERENCES Dinners(DinnerId), Email TEXT);";
+            //    cmd.ExecuteNonQuery();
+            //}
+            //Database.SetInitializer<NerdDinners>(null);
 		}
 
 		[TearDown]
@@ -60,17 +60,66 @@ namespace System.Data.SQLite.Tests.Entity
 			System.IO.File.Delete(_db.Split('=')[1]);
 		}
 
-		[Test]
-		[ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
-		public void InsertFailsWithNoForeignKeyTest()
-		{
-			var rsvp = new Rsvp();
-			rsvp.Email = "test";			
-			var ctx = new NerdDinners(new SQLiteConnection(_db));
-			ctx.Rsvps.Add(rsvp);
-			ctx.SaveChanges();
-			Assert.Fail();
-		}
+        [Test]
+        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        public void InsertFailsWithNoForeignKeyTest()
+        {
+            var rsvp = new Rsvp();
+            rsvp.Email = "test";
+            var ctx = new NerdDinners(new SQLiteConnection(_db));
+            ctx.Rsvps.Add(rsvp);
+            ctx.SaveChanges();
+            Assert.Fail();
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        public void InsertFailsWithBadForeignKeyTest()
+        {
+            var rsvp = new Rsvp();
+            rsvp.Email = "test";
+            rsvp.DinnerId = 19099;
+            var ctx = new NerdDinners(new SQLiteConnection(_db));
+            ctx.Rsvps.Add(rsvp);
+            ctx.SaveChanges();
+            Assert.Fail();
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        public void UpdateFailsWithBadForeignKeyTest()
+        {
+            var rsvp = new Rsvp();
+            rsvp.Email = "test";
+            var ctx = new NerdDinners(new SQLiteConnection(_db));
+            var dinner = new Dinner { Address = "test1", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.1 };
+            rsvp.Dinner = dinner;
+            ctx.Dinners.Add(dinner);
+            ctx.Rsvps.Add(rsvp);
+            ctx.SaveChanges();
+            rsvp.DinnerId = 19099;
+            ctx.SaveChanges();
+            Assert.Fail();
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        public void DeleteFailsWithForeignKeyTest()
+        {
+            var rsvp = new Rsvp();
+            rsvp.Email = "test";
+            var ctx = new NerdDinners(new SQLiteConnection(_db));
+            var dinner = new Dinner { Address = "test1", EventDate = DateTime.Today, Title = "John's dinner", Identifier = Guid.NewGuid(), DoubleValue = 1.1 };
+            rsvp.Dinner = dinner;
+            ctx.Dinners.Add(dinner);
+            ctx.Rsvps.Add(rsvp);
+            ctx.SaveChanges();
+            ctx.Dispose();
+            ctx = new NerdDinners(new SQLiteConnection(_db));
+            ctx.Dinners.RemoveRange(ctx.Dinners.ToList());
+            ctx.SaveChanges();
+            Assert.Fail();
+        }
 
 		[Test()]
 		public void InsertFillsInForeignKeyTest()

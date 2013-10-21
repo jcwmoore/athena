@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>csharpsqlite.entity</id>
-    <version>1.0.0.0</version>
+    <version>6.0.1</version>
     <title>csharpsqlite with Entity Framework Provider</title>
     <authors>John Moore</authors>
     <owners>John Moore</owners>
@@ -18,9 +18,15 @@
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags></tags>
+    <dependencies>
+      <group>
+        <dependency id="EntityFramework" version="6.0.1" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
     <file src="..\bin\Release\System.Data.SQLite.Entity.dll" target="lib\net40" />
     <file src="..\bin\Release\C#Sqlite.exe" target="tools" />
+    <file src="App.config.transform" target="content" />
   </files>
 </package>

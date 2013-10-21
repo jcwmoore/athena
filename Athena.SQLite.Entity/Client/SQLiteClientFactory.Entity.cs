@@ -31,7 +31,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace System.Data.SQLite
 {
-	public partial class SQLiteClientFactory : IServiceProvider, IDbConnectionFactory
+    public partial class SQLiteClientFactory : IServiceProvider, IDbConnectionFactory, IDbProviderFactoryResolver
 	{
 		#region IServiceProvider implementation
 		
@@ -46,6 +46,15 @@ namespace System.Data.SQLite
         public DbConnection CreateConnection(string nameOrConnectionString)
         {
             return new SQLiteConnection(nameOrConnectionString);
+        }
+
+        public DbProviderFactory ResolveProviderFactory(DbConnection connection)
+        {
+            if (connection is SQLiteConnection)
+            {
+                return this;
+            }
+            throw new InvalidOperationException();
         }
     }
 }

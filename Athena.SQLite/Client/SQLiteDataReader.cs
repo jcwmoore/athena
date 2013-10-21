@@ -389,7 +389,7 @@ namespace System.Data.SQLite
 			object value = GetValue (i);
 			if (!(value is Guid)) {
 				if (value is DBNull)
-					throw new SqliteExecutionException ("Column value must not be null");
+					throw new SQLiteExecutionException ("Column value must not be null");
 				//throw new InvalidCastException ("Type is " + value.GetType ().ToString ());
 				return new Guid(value.ToString());
 			}

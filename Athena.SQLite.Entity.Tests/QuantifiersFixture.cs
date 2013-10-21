@@ -45,16 +45,6 @@ namespace System.Data.SQLite.Tests.Entity
 		public void Setup()
 		{
 			_db = string.Format("Data Source={0}.db3", Guid.NewGuid());
-			using (var conn = new SQLiteConnection(_db))
-				using (var cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
-				cmd.ExecuteNonQuery();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Rsvps (RsvpId INTEGER PRIMARY KEY AUTOINCREMENT, DinnerId INTEGER NOT NULL REFERENCES Dinners(DinnerId), Email TEXT);";
-				cmd.ExecuteNonQuery();
-			}
-			Database.SetInitializer<NerdDinners>(null);
 		}
 		
 		[TearDown]

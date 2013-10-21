@@ -378,6 +378,8 @@
     <Compile Include="SQL Generation\TopClause.cs" />
     <Compile Include="DdlBuilder.cs" />
     <Compile Include="SQLiteConfiguration.cs" />
+    <Compile Include="SQLiteDatabaseGenerator.cs" />
+    <Compile Include="SQLiteDependencyResolver.cs" />
     <Compile Include="SQLiteExecutionStrategy.cs" />
     <Compile Include="SQLiteProviderManifest.cs" />
     <Compile Include="SQLiteProviderServices.cs" />
@@ -399,6 +401,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App.config.transform" />
     <None Include="Athena.SQLite.Entity.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

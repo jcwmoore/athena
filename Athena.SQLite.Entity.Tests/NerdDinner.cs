@@ -32,6 +32,45 @@ using System.Data.Entity;
 
 namespace System.Data.SQLite.Tests.Entity
 {
+    [SQLite.Entity.SQLiteConfiguration(GenerateDatabase = true, GenerateForeignKeys = true)]
+    public class NerdDinners : DbContext
+    {
+        public NerdDinners(System.Data.Common.DbConnection conn)
+            : base(conn, true)
+        {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // Dinners
+            modelBuilder.Entity<Dinner>().HasKey(d => d.DinnerId);
+
+            modelBuilder.Entity<Dinner>().ToTable("Dinners");
+
+            modelBuilder.Entity<Dinner>().Property(d => d.EventDate).HasColumnName("EventDate");
+            modelBuilder.Entity<Dinner>().Property(d => d.Identifier).HasColumnName("DinnerGuid").IsRequired();
+            modelBuilder.Entity<Dinner>().Property(d => d.Address).HasColumnName("Address");
+            modelBuilder.Entity<Dinner>().Property(d => d.Title).HasColumnName("Title");
+            modelBuilder.Entity<Dinner>().Property(d => d.DoubleValue).HasColumnName("dv");
+
+            // RSVPs
+            modelBuilder.Entity<Rsvp>().HasKey(r => r.RsvpId);
+
+            modelBuilder.Entity<Rsvp>().ToTable("Rsvps");
+
+            modelBuilder.Entity<Rsvp>().Property(r => r.Email).HasColumnName("Email");
+            modelBuilder.Entity<Rsvp>().Property(r => r.DinnerId).HasColumnName("DinnerId");
+
+            modelBuilder.Entity<Rsvp>().HasRequired(r => r.Dinner).WithMany(d => d.Rsvps).HasForeignKey(r => r.DinnerId).WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public virtual DbSet<Dinner> Dinners { get; set; }
+        public virtual DbSet<Rsvp> Rsvps { get; set; }
+
+    }
+
 	public class Dinner
 	{
 		internal protected Dinner() { }
@@ -53,43 +92,6 @@ namespace System.Data.SQLite.Tests.Entity
 		public int DinnerId { get; set; }
 		public string Email { get; set; }
 		public virtual Dinner Dinner { get; set; }
-	}
-    [SQLite.Entity.SQLiteConfiguration]
-	public class NerdDinners : DbContext
-	{
-		public NerdDinners(System.Data.Common.DbConnection conn) : base(conn, true)
-		{
-		}
-		
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
-			// Dinners
-			modelBuilder.Entity<Dinner>().HasKey(d => d.DinnerId);
-			
-			modelBuilder.Entity<Dinner>().ToTable("Dinners");
-			
-			modelBuilder.Entity<Dinner>().Property(d => d.EventDate).HasColumnName("EventDate");
-			modelBuilder.Entity<Dinner>().Property(d => d.Identifier).HasColumnName("DinnerGuid").IsRequired();
-			modelBuilder.Entity<Dinner>().Property(d => d.Address).HasColumnName("Address");
-			modelBuilder.Entity<Dinner>().Property(d => d.Title).HasColumnName("Title");
-			modelBuilder.Entity<Dinner>().Property(d => d.DoubleValue).HasColumnName("dv");
-
-			// RSVPs
-			modelBuilder.Entity<Rsvp>().HasKey(r => r.RsvpId);
-
-			modelBuilder.Entity<Rsvp>().ToTable("Rsvps");
-
-			modelBuilder.Entity<Rsvp>().Property(r => r.Email).HasColumnName("Email");
-			modelBuilder.Entity<Rsvp>().Property(r => r.DinnerId).HasColumnName("DinnerId");
-
-			modelBuilder.Entity<Rsvp>().HasRequired(r => r.Dinner).WithMany(d => d.Rsvps).HasForeignKey(r => r.DinnerId);
-			
-			base.OnModelCreating(modelBuilder);
-		}
-
-		public virtual DbSet<Dinner> Dinners { get; set; }
-		public virtual DbSet<Rsvp> Rsvps { get; set; }
-
 	}
 }
 

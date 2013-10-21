@@ -40,15 +40,7 @@ namespace System.Data.SQLite.Tests.Entity
 
 		[TestFixtureSetUp]
 		public void Setup()
-		{
-			using(var conn = new SQLiteConnection(_db))
-			using(var cmd = conn.CreateCommand())
-			{
-				conn.Open();
-				cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dinners (DinnerId INTEGER PRIMARY KEY AUTOINCREMENT, Title TEXT, EventDate DATETIME, Address TEXT, DinnerGuid TEXT NOT NULL, dv FLOAT NOT NULL);";
-				cmd.ExecuteNonQuery();
-			}
-		}
+		{}
 
 		[TestFixtureTearDown]
 		public void TearDown()

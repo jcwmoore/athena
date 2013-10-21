@@ -5,7 +5,10 @@ using System.Text;
 
 namespace System.Data.SQLite.Entity
 {
-    public class SQLiteExecutionStrategy : System.Data.Entity.Infrastructure.IDbExecutionStrategy
+    /// <summary>
+    /// only here for debugging
+    /// </summary>
+    internal class SQLiteExecutionStrategy : System.Data.Entity.Infrastructure.IDbExecutionStrategy
     {
         public TResult Execute<TResult>(Func<TResult> operation)
         {

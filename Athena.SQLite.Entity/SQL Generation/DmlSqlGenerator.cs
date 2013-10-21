@@ -709,6 +709,11 @@ namespace System.Data.SQLite
 				}
 			}
 
+            public override void Visit(DbInExpression expression)
+            {
+                base.Visit(expression);
+            }
+
 			private void VisitBinary(DbBinaryExpression expression, string separator)
 			{
 				_commandText.Append("(");

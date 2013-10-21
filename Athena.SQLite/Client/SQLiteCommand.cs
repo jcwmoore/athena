@@ -256,7 +256,7 @@ namespace System.Data.SQLite
 		{
 			SQLiteError err = (SQLiteError)Sqlite3.sqlite3_prepare_v2( parent_conn.Handle2, pzStart, pzStart.Length, ref pStmt, ref pzTail );
 			if ( err != SQLiteError.OK )
-				throw new SqliteSyntaxException( parent_conn.Handle2.errCode, GetError3() );
+				throw new SQLiteSyntaxException( parent_conn.Handle2.errCode, GetError3() );
 		}
 
 		// Executes a statement and ignores its result.
@@ -277,7 +277,7 @@ namespace System.Data.SQLite
 			err = (SQLiteError)Sqlite3.sqlite3_step( pStmt );
 
 			if ( err == SQLiteError.ERROR )
-				throw new SqliteExecutionException(parent_conn.Handle2.errCode, GetError3() + "\n" + pStmt.zErrMsg );
+				throw new SQLiteExecutionException(parent_conn.Handle2.errCode, GetError3() + "\n" + pStmt.zErrMsg );
 						
 			pazValue = IntPtr.Zero;
 			pazColName = IntPtr.Zero; // not used for v=3
@@ -293,10 +293,10 @@ namespace System.Data.SQLite
 			}
 			*/
 			if ( err == SQLiteError.BUSY )
-				throw new SqliteBusyException();
+				throw new SQLiteBusyException();
 
 			if ( err == SQLiteError.MISUSE )
-				throw new SqliteExecutionException();
+				throw new SQLiteExecutionException();
 			if ( err == SQLiteError.CONSTRAINT )
 				throw new SQLiteException(parent_conn.Handle2.errCode, GetError3() + "\n" + pStmt.zErrMsg);
 			if ( err == SQLiteError.MISMATCH )
@@ -411,7 +411,7 @@ namespace System.Data.SQLite
 			string queryval = sql.Trim();
 			string pzTail = sql.Trim();
 			IntPtr errMsgPtr;
-            Console.WriteLine(queryval);
+            //Console.WriteLine(queryval);
 			parent_conn.StartExec();
 
 			rows_affected = 0;
