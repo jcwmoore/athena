@@ -35,8 +35,7 @@ namespace System.Data.SQLite.Tests.Entity
     [SQLite.Entity.SQLiteConfiguration(GenerateDatabase = true, GenerateForeignKeys = true)]
     public class NerdDinners : DbContext
     {
-        public NerdDinners(System.Data.Common.DbConnection conn)
-            : base(conn, true)
+        public NerdDinners(System.Data.Common.DbConnection conn) : base(conn, true)
         {
         }
 

@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>csharpsqlite.entity</id>
-    <version>6.0.1</version>
+    <id>System.Data.SQLite.Entity</id>
+    <version>6.0.2</version>
     <title>csharpsqlite with Entity Framework Provider</title>
     <authors>John Moore</authors>
     <owners>John Moore</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
-    <projectUrl>http://code.google.com/p/csharp-sqlite/</projectUrl>
-    <iconUrl>http://code.google.com/p/csharp-sqlite/logo?cct=1355956730</iconUrl>
+    <projectUrl>https://github.com/jcwmoore/athena</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/7a36f17f86bd7b44060a154928380438.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       C#-SQLite is an independent reimplementation of the SQLite software library version 3.7.7.1
@@ -20,7 +20,7 @@
     <tags></tags>
     <dependencies>
       <group>
-        <dependency id="EntityFramework" version="6.0.1" />
+        <dependency id="EntityFramework" version="6.0.2" />
       </group>
     </dependencies>
   </metadata>
