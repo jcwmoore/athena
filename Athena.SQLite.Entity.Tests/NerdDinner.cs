@@ -51,6 +51,7 @@ namespace System.Data.SQLite.Tests.Entity
             modelBuilder.Entity<Dinner>().Property(d => d.Address).HasColumnName("Address");
             modelBuilder.Entity<Dinner>().Property(d => d.Title).HasColumnName("Title");
             modelBuilder.Entity<Dinner>().Property(d => d.DoubleValue).HasColumnName("dv");
+            modelBuilder.Entity<Dinner>().Property(d => d.RowVersion).HasColumnName("RowVersion").IsRowVersion();
 
             // RSVPs
             modelBuilder.Entity<Rsvp>().HasKey(r => r.RsvpId);
@@ -80,7 +81,7 @@ namespace System.Data.SQLite.Tests.Entity
 		public DateTime EventDate { get; set; }
 		public string Address { get; set; }
 		public double DoubleValue { get; set; }
-
+        public byte[] RowVersion { get; set; }
 		public virtual ICollection<Rsvp> Rsvps { get; set; }
 	}
 

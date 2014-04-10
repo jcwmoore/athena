@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <system.data>
+    <entityFramework>
+      <providers>
+        <provider invariantName="System.Data.SQLite" type="System.Data.SQLite.SQLiteProviderServices, System.Data.SQLite.Entity" />
+      </providers>
+    </entityFramework>
     <DbProviderFactories>
       <remove invariant="System.Data.SQLite" />
-      <add name="SQLite Data Provider" invariant="System.Data.SQLite" description=".Net Framework Data Provider for SQLite" type="System.Data.SQLite.SQLiteClientFactory, System.Data.SQLite.Entity, Version=3.7.7.1, Culture=neutral" />
+      <add name="SQLite Data Provider" invariant="System.Data.SQLite" description=".Net Framework Data Provider for SQLite" type="System.Data.SQLite.SQLiteClientFactory, System.Data.SQLite.Entity" />
     </DbProviderFactories>
   </system.data>
 </configuration>

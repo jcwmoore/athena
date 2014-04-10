@@ -134,6 +134,8 @@ namespace System.Data.SQLite
 					isUnicode = true;
 					isFixedLen = true;
 					break;
+                case "rowversion":
+                    return TypeUsage.CreateBinaryTypeUsage(edmPrimitiveType, true, 8);
 				case "blob":
 					newPrimitiveTypeKind = PrimitiveTypeKind.Binary;
 					isUnbounded = !TypeHelpers.TryGetMaxLength(storeType, out maxLength);

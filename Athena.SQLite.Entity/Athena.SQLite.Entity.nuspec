@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>System.Data.SQLite.Entity</id>
-    <version>6.0.2</version>
+    <version>6.1.0.0</version>
     <title>csharpsqlite with Entity Framework Provider</title>
     <authors>John Moore</authors>
     <owners>John Moore</owners>
@@ -11,16 +11,17 @@
     <iconUrl>http://www.gravatar.com/avatar/7a36f17f86bd7b44060a154928380438.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
+      This library contains the C#-SQLite library bundled with a SQLite Entity Framework Provider.
       C#-SQLite is an independent reimplementation of the SQLite software library version 3.7.7.1
 
       It has been ported into managed code, written in C#
     </description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags></tags>
     <dependencies>
       <group>
-        <dependency id="EntityFramework" version="6.0.2" />
+        <dependency id="EntityFramework" version="6.1.0" />
       </group>
     </dependencies>
   </metadata>

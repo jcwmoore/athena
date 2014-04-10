@@ -322,14 +322,12 @@ END;";
 			// check for rowversion-like configurations
 			Facet storeGenFacet;
 			bool isTimestamp = false;
-			if (type.EdmType.Name == "binary" &&
-				8 == type.GetMaxLength() &&
-				column.TypeUsage.Facets.TryGetValue("StoreGeneratedPattern", false, out storeGenFacet) &&
-				storeGenFacet.Value != null &&
-				StoreGeneratedPattern.Computed == (StoreGeneratedPattern)storeGenFacet.Value)
+			if (type.EdmType.Name == "rowversion")
 			{
 				isTimestamp = true;
-				AppendIdentifier("rowversion");
+				AppendIdentifier("ROWVERSION");
+                // row Versions are not set by EF and not supporting in SQLite, so we will fake it
+                AppendSql(@" NOT NULL DEFAULT X'01'");
 			}
 			else
 			{
@@ -356,31 +354,9 @@ END;";
 				else
 				{
 					AppendIdentifier(typeName.ToUpper());
-				}
-				//switch (type.EdmType.Name)
-				//{
-				//    case "decimal":
-				//    case "numeric":
-				//        AppendSqlInvariantFormat("({0}, {1})", type.GetPrecision(), type.GetScale());
-				//        break;
-				//    case "datetime2":
-				//    case "datetimeoffset":
-				//    case "time":
-				//        AppendSqlInvariantFormat("({0})", type.GetPrecision());
-				//        break;
-				//    case "binary":
-				//    case "varbinary":
-				//    case "nvarchar":
-				//    case "varchar":
-				//    case "char":
-				//    case "nchar":
-				//        AppendSqlInvariantFormat("({0})", type.GetMaxLength());
-				//        break;
-				//    default:
-				//        break;
-				//}
+                }
+                AppendSql(column.Nullable ? " NULL" : " NOT NULL");
 			}
-			AppendSql(column.Nullable ? " NULL" : " NOT NULL");
 
 			if (!isTimestamp && column.TypeUsage.Facets.TryGetValue("StoreGeneratedPattern", false, out storeGenFacet) &&
 				storeGenFacet.Value != null)

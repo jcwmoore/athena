@@ -69,8 +69,8 @@ namespace System.Data.SQLite
 
 			// where c1 = ..., c2 = ...
 			commandText.Append("WHERE ");
-			tree.Predicate.Accept(translator);
-			commandText.AppendLine();
+            tree.Predicate.Accept(translator);
+            commandText.AppendLine(";");
 
 			// generate returning sql
 			GenerateReturningSql(commandText, tree, translator, tree.Returning);
